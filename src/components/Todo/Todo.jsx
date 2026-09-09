@@ -1,5 +1,6 @@
 import styles from './Todo.module.scss'
 import NewTask from '@/components/NewTask/NewTask.jsx'
+import SearchTask from '@/components/SearchTask/SearchTask.jsx'
 
 const Todo = () => {
   return (
@@ -10,6 +11,10 @@ const Todo = () => {
         placeholderInput='New task title'
         typeButton='submit'
         textButton='Add'
+      />
+      <SearchTask
+        typeInput='text'
+        placeholderInput='Search task'
       />
     </main>
   )
