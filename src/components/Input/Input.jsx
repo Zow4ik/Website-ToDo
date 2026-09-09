@@ -8,6 +8,7 @@ const Input = (props) => {
 
   return (
     <input
+      maxLength='28'
       className={styles.input}
       type={type}
       placeholder={placeholder}

@@ -1,13 +1,13 @@
 import styles from './Tasks.module.scss'
+import Task from '@/components/Task/Task.jsx'
 
 const Tasks = () => {
   return (
     <ul className={styles.list}>
-      <li>затычка</li>
-      <li>затычка</li>
-      <li>затычка</li>
-      <li>затычка</li>
-      <li>затычка</li>
+      <Task />
+      <Task />
+      <Task />
+      <Task />
     </ul>
   )
 }
