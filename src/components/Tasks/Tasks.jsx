@@ -6,11 +6,12 @@ const Tasks = (props) => {
     tasks,
     changeIsCompleteTask,
     deleteTask,
+    filteredTasks,
   } = props
 
   return (
     <ul className={styles.list}>
-      {tasks.map((task) => (
+      {(filteredTasks ?? tasks).map((task) => (
         <Task
           key={task.id}
           id={task.id}

@@ -13,6 +13,8 @@ const Todo = () => {
     { id: 4, text: '4 покормить асю 4', isComplete: false },
   ])
 
+  const [filteredTasks, setFilteredTasks] = useState(null)
+
   const addTask = (event, text) => {
     event.preventDefault()
 
@@ -26,8 +28,15 @@ const Todo = () => {
     ])
   }
 
-  const searchTasks = () => {
-    console.log('searchTasks')
+  const searchTasks = (event, text) => {
+    event.preventDefault()
+    const textTrim = text.trim()
+
+    setFilteredTasks(
+      textTrim.length > 0
+        ? tasks.filter((task) => task.text.includes(textTrim))
+        : null
+    )
   }
 
   const deleteAllTasks = () => {
@@ -65,6 +74,7 @@ const Todo = () => {
       <SearchTask
         typeInput='text'
         placeholderInput='Search task'
+        searchTasks={searchTasks}
       />
       <StatusTask
         tasks={tasks}
@@ -74,6 +84,7 @@ const Todo = () => {
         tasks={tasks}
         changeIsCompleteTask={changeIsCompleteTask}
         deleteTask={deleteTask}
+        filteredTasks={filteredTasks}
       />
     </main>
   )
