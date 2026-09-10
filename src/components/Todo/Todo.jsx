@@ -36,8 +36,10 @@ const Todo = () => {
     setTasks([])
   }
 
-  const deleteTask = () => {
-    console.log('deleteTask')
+  const deleteTask = (id) => {
+    setTasks(
+      tasks.filter((task) => task.id !== id)
+    )
   }
 
   const changeIsCompleteTask = (id) => {
@@ -71,6 +73,7 @@ const Todo = () => {
       <Tasks
         tasks={tasks}
         changeIsCompleteTask={changeIsCompleteTask}
+        deleteTask={deleteTask}
       />
     </main>
   )

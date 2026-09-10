@@ -6,6 +6,7 @@ const Task = (props) => {
     isComplete,
     text,
     changeIsCompleteTask,
+    deleteTask,
   } = props
 
   return (
@@ -19,7 +20,10 @@ const Task = (props) => {
         />
         <p className={styles.text}>{text}</p>
       </div>
-      <button className={styles.button}/>
+      <button
+        className={styles.button}
+        onClick={() => deleteTask(id)}
+      />
     </li>
   )
 }

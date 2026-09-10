@@ -5,6 +5,7 @@ const Tasks = (props) => {
   const {
     tasks,
     changeIsCompleteTask,
+    deleteTask,
   } = props
 
   return (
@@ -16,6 +17,7 @@ const Tasks = (props) => {
           isComplete={task.isComplete}
           text={task.text}
           changeIsCompleteTask={changeIsCompleteTask}
+          deleteTask={deleteTask}
         />
       ))}
     </ul>
