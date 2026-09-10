@@ -13,8 +13,17 @@ const Todo = () => {
     { id: 4, text: '4 покормить асю 4', isComplete: false },
   ])
 
-  const addTask = () => {
-    console.log('addTask')
+  const addTask = (event, text) => {
+    event.preventDefault()
+
+    setTasks([
+      ...tasks,
+      {
+        id: crypto.randomUUID(),
+        text: text,
+        isComplete: false,
+      },
+    ])
   }
 
   const searchTasks = () => {
@@ -43,6 +52,7 @@ const Todo = () => {
         placeholderInput='New task title'
         typeButton='submit'
         textButton='Add'
+        addTask={addTask}
       />
       <SearchTask
         typeInput='text'

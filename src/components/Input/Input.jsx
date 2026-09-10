@@ -3,7 +3,9 @@ import styles from './Input.module.scss'
 const Input = (props) => {
   const {
     type,
-    placeholder
+    placeholder,
+    valueInput,
+    setValueInput,
   } = props
 
   return (
@@ -12,6 +14,8 @@ const Input = (props) => {
       className={styles.input}
       type={type}
       placeholder={placeholder}
+      value={valueInput}
+      onInput={(event) => setValueInput(event.target.value)}
     />
   )
 }
