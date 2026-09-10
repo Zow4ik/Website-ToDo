@@ -1,13 +1,21 @@
 import styles from './Tasks.module.scss'
 import Task from '@/components/Task/Task.jsx'
 
-const Tasks = () => {
+const Tasks = (props) => {
+  const {
+    tasks,
+  } = props
+
   return (
     <ul className={styles.list}>
-      <Task />
-      <Task />
-      <Task />
-      <Task />
+      {tasks.map((task) => (
+        <Task
+          key={task.id}
+          id={task.id}
+          isComplete={task.isComplete}
+          text={task.text}
+        />
+      ))}
     </ul>
   )
 }

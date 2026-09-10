@@ -1,14 +1,21 @@
 import styles from './Task.module.scss'
 
-const Task = () => {
+const Task = (props) => {
+  const {
+    id,
+    isComplete,
+    text,
+  } = props
+
   return (
-    <li className={styles.container}>
+    <li className={styles.container} id={id}>
       <div className={styles.inputContainer}>
         <input
           className={styles.checkbox}
           type='checkbox'
+          checked={isComplete}
         />
-        <p className={styles.text}>сделать корм асе</p>
+        <p className={styles.text}>{text}</p>
       </div>
       <button className={styles.button}/>
     </li>

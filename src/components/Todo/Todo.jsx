@@ -6,7 +6,12 @@ import Tasks from '@/components/Tasks/Tasks.jsx'
 import {useState} from 'react'
 
 const Todo = () => {
-  const [tasks, setTasks] = useState([])
+  const [tasks, setTasks] = useState([
+    { id: 1, text: '1 покормить асю 1', isComplete: false },
+    { id: 2, text: '2 покормить асю 2', isComplete: true },
+    { id: 3, text: '3 покормить асю 3', isComplete: true },
+    { id: 4, text: '4 покормить асю 4', isComplete: false },
+  ])
 
   const addTask = () => {
     console.log('addTask')
@@ -42,7 +47,7 @@ const Todo = () => {
         placeholderInput='Search task'
       />
       <StatusTask />
-      <Tasks />
+      <Tasks tasks={tasks} />
     </main>
   )
 }
