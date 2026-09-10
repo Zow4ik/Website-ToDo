@@ -40,8 +40,14 @@ const Todo = () => {
     console.log('deleteTask')
   }
 
-  const changeIsCompleteTask = () => {
-    console.log('changeIsCompleteTask')
+  const changeIsCompleteTask = (id) => {
+    setTasks(
+      tasks.map((task) => (
+        task.id === id
+          ? { id: task.id, text: task.text, isComplete: !task.isComplete }
+          : task
+      ))
+    )
   }
 
   return (
@@ -62,7 +68,10 @@ const Todo = () => {
         tasks={tasks}
         deleteAllTasks={deleteAllTasks}
       />
-      <Tasks tasks={tasks} />
+      <Tasks
+        tasks={tasks}
+        changeIsCompleteTask={changeIsCompleteTask}
+      />
     </main>
   )
 }

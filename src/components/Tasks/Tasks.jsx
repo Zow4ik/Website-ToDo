@@ -4,6 +4,7 @@ import Task from '@/components/Task/Task.jsx'
 const Tasks = (props) => {
   const {
     tasks,
+    changeIsCompleteTask,
   } = props
 
   return (
@@ -14,6 +15,7 @@ const Tasks = (props) => {
           id={task.id}
           isComplete={task.isComplete}
           text={task.text}
+          changeIsCompleteTask={changeIsCompleteTask}
         />
       ))}
     </ul>
