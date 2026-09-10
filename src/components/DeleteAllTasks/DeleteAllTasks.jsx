@@ -1,8 +1,16 @@
 import styles from './DeleteAllTasks.module.scss'
 
-const DeleteAllTasks = () => {
+const DeleteAllTasks = (props) => {
+  const {
+    deleteAllTasks,
+  } = props
+
   return (
-    <button type='button' className={styles.button}>
+    <button
+      type='button'
+      className={styles.button}
+      onClick={deleteAllTasks}
+    >
       Delete All
     </button>
   )

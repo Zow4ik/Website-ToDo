@@ -22,7 +22,9 @@ const Todo = () => {
   }
 
   const deleteAllTasks = () => {
-    console.log('deleteAllTasks')
+    if ( !confirm('вы уверены, что хотите удалить все заметки?') ) return
+
+    setTasks([])
   }
 
   const deleteTask = () => {
@@ -46,7 +48,10 @@ const Todo = () => {
         typeInput='text'
         placeholderInput='Search task'
       />
-      <StatusTask tasks={tasks} />
+      <StatusTask
+        tasks={tasks}
+        deleteAllTasks={deleteAllTasks}
+      />
       <Tasks tasks={tasks} />
     </main>
   )

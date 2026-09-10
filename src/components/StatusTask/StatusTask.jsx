@@ -4,12 +4,13 @@ import DeleteAllTasks from '@/components/DeleteAllTasks/DeleteAllTasks.jsx'
 const StatusTask = (props) => {
   const {
     tasks,
+    deleteAllTasks,
   } = props
 
   return (
     <div className={styles.container}>
       <p className={styles.sumTasks}>Total Tasks: {tasks.length}</p>
-      <DeleteAllTasks/>
+      <DeleteAllTasks deleteAllTasks={deleteAllTasks}/>
     </div>
   )
 }
