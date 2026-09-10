@@ -46,7 +46,7 @@ const Todo = () => {
         typeInput='text'
         placeholderInput='Search task'
       />
-      <StatusTask />
+      <StatusTask tasks={tasks} />
       <Tasks tasks={tasks} />
     </main>
   )
