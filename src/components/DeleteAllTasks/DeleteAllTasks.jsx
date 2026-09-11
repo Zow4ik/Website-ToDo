@@ -1,4 +1,5 @@
 import styles from './DeleteAllTasks.module.scss'
+import { memo } from 'react'
 
 const DeleteAllTasks = (props) => {
   const {
@@ -16,4 +17,4 @@ const DeleteAllTasks = (props) => {
   )
 }
 
-export default DeleteAllTasks
+export default memo(DeleteAllTasks)

@@ -42,12 +42,12 @@ const Todo = () => {
     setTasks(newStateTasks)
   }
 
-  const deleteAllTasks = () => {
+  const deleteAllTasks = useCallback(() => {
     if ( !confirm('вы уверены, что хотите удалить все заметки?') ) return
 
     localStorageApi.clearLocalStorage()
     setTasks([])
-  }
+  }, [])
 
   const deleteTask = useCallback((id) => {
     setTasks((prevTasks) => {
