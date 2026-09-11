@@ -6,56 +6,67 @@ import Tasks from '@/components/Tasks/Tasks.jsx'
 import {useEffect, useState} from 'react'
 
 const Todo = () => {
-  const [tasks, setTasks] = useState([
-    { id: 1, text: '1 покормить асю 1', isComplete: false },
-    { id: 2, text: '2 покормить асю 2', isComplete: true },
-    { id: 3, text: '3 покормить асю 3', isComplete: true },
-    { id: 4, text: '4 покормить асю 4', isComplete: false },
-  ])
+  const [tasks, setTasks] = useState(() => {
+    const dataLocalStorage = JSON.parse(localStorage.getItem('tasks'))
+
+    if (!dataLocalStorage) {
+      return [
+        { id: 1, text: 'заметка пример', isComplete: false },
+      ]
+    }
+
+    return dataLocalStorage
+  })
   const [filteredTasks, setFilteredTasks] = useState(null)
   const [searchQuery, setSearchQuery] = useState('')
 
   const addTask = (event, text) => {
     event.preventDefault()
-
-    setTasks([
+    const newStateTasks = [
       ...tasks,
       {
         id: crypto.randomUUID(),
         text: text,
         isComplete: false,
       },
-    ])
+    ]
+
+    localStorage.setItem('tasks', JSON.stringify(newStateTasks))
+    setTasks(newStateTasks)
   }
 
   const deleteAllTasks = () => {
     if ( !confirm('вы уверены, что хотите удалить все заметки?') ) return
 
+    localStorage.setItem('tasks', JSON.stringify([]))
     setTasks([])
   }
 
   const deleteTask = (id) => {
-    setTasks(
-      tasks.filter((task) => task.id !== id)
-    )
+    const newStateTasks = tasks.filter((task) => task.id !== id)
+
+    localStorage.setItem('tasks', JSON.stringify(newStateTasks))
+    setTasks(newStateTasks)
   }
 
   const changeIsCompleteTask = (id) => {
-    setTasks(
+    const newStateTasks =
       tasks.map((task) => (
         task.id === id
           ? { id: task.id, text: task.text, isComplete: !task.isComplete }
           : task
       ))
-    )
+
+    localStorage.setItem('tasks', JSON.stringify(newStateTasks))
+    setTasks(newStateTasks)
   }
 
   useEffect(() => {
-    const textTrim = searchQuery.trim()
+    const searchQueryTrim = searchQuery.trim()
 
     setFilteredTasks(
-      textTrim.length > 0
-        ? tasks.filter((task) => task.text.includes(textTrim))
+      searchQueryTrim.length > 0
+        ? tasks.filter((task) => task.text.includes(searchQueryTrim))
         : null
     )
   }, [tasks, searchQuery]);

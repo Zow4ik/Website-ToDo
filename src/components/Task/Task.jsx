@@ -16,7 +16,7 @@ const Task = (props) => {
           className={styles.checkbox}
           type='checkbox'
           checked={isComplete}
-          onClick={() => changeIsCompleteTask(id)}
+          onChange={() => changeIsCompleteTask(id)}
         />
         <p className={styles.text}>{text}</p>
       </div>
