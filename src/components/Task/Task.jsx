@@ -1,4 +1,5 @@
 import styles from './Task.module.scss'
+import { memo } from 'react'
 
 const Task = (props) => {
   const {
@@ -28,4 +29,4 @@ const Task = (props) => {
   )
 }
 
-export default Task
+export default memo(Task)

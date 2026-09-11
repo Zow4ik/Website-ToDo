@@ -3,8 +3,9 @@ import NewTask from '@/components/NewTask/NewTask.jsx'
 import SearchTask from '@/components/SearchTask/SearchTask.jsx'
 import StatusTask from '@/components/StatusTask/StatusTask.jsx'
 import Tasks from '@/components/Tasks/Tasks.jsx'
-import {useEffect, useState} from 'react'
+import {useCallback, useEffect, useState} from 'react'
 import {localStorageApi} from '@/api/localStorageApi.js'
+import {useDebounce} from '@/hooks/useDebounce.js'
 
 const Todo = () => {
   const [tasks, setTasks] = useState(() => {
@@ -21,8 +22,13 @@ const Todo = () => {
   const [filteredTasks, setFilteredTasks] = useState(null)
   const [searchQuery, setSearchQuery] = useState('')
 
+  const debounceSetSearchQuery = useDebounce((value) => setSearchQuery(value))
+
   const addTask = (event, text) => {
     event.preventDefault()
+
+    if (!text.trim().length) return
+
     const newStateTasks = [
       ...tasks,
       {
@@ -43,24 +49,27 @@ const Todo = () => {
     setTasks([])
   }
 
-  const deleteTask = (id) => {
-    const newStateTasks = tasks.filter((task) => task.id !== id)
+  const deleteTask = useCallback((id) => {
+    setTasks((prevTasks) => {
+      const newStateTasks = prevTasks.filter((task) => task.id !== id)
+      localStorageApi.updateLocalStorage(newStateTasks)
+      return newStateTasks
+    })
+  }, [])
 
-    localStorageApi.updateLocalStorage(newStateTasks)
-    setTasks(newStateTasks)
-  }
+  const changeIsCompleteTask = useCallback((id) => {
+    setTasks((prevTasks) => {
+      const newStateTasks =
+        prevTasks.map((task) => (
+          task.id === id
+            ? { id: task.id, text: task.text, isComplete: !task.isComplete }
+            : task
+        ))
 
-  const changeIsCompleteTask = (id) => {
-    const newStateTasks =
-      tasks.map((task) => (
-        task.id === id
-          ? { id: task.id, text: task.text, isComplete: !task.isComplete }
-          : task
-      ))
-
-    localStorageApi.updateLocalStorage(newStateTasks)
-    setTasks(newStateTasks)
-  }
+      localStorageApi.updateLocalStorage(newStateTasks)
+      return newStateTasks
+    })
+  }, [])
 
   useEffect(() => {
     const searchQueryTrim = searchQuery.trim()
@@ -86,11 +95,12 @@ const Todo = () => {
         typeInput='text'
         placeholderInput='Search task'
         searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
+        setSearchQuery={debounceSetSearchQuery}
       />
       <StatusTask
         tasks={tasks}
         deleteAllTasks={deleteAllTasks}
+        filteredTasks={filteredTasks}
       />
       <Tasks
         tasks={tasks}

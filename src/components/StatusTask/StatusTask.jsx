@@ -5,11 +5,14 @@ const StatusTask = (props) => {
   const {
     tasks,
     deleteAllTasks,
+    filteredTasks,
   } = props
 
   return (
     <div className={styles.container}>
-      <p className={styles.sumTasks}>Total Tasks: {tasks.length}</p>
+      <p className={styles.sumTasks}>Total Tasks: {
+        filteredTasks ? filteredTasks.length : tasks.length
+      }</p>
       <DeleteAllTasks deleteAllTasks={deleteAllTasks}/>
     </div>
   )

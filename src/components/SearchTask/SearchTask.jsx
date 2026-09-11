@@ -12,7 +12,10 @@ const SearchTask = (props) => {
   } = props
 
   return (
-    <form className={styles.container}>
+    <form
+      className={styles.container}
+      onSubmit={(event) => event.preventDefault()}
+    >
       <Input
         type={typeInput}
         placeholder={placeholderInput}

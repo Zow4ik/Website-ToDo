@@ -17,7 +17,10 @@ const NewTask = (props) => {
   return (
     <form
       className={styles.container}
-      onSubmit={(event) => addTask(event, valueInput)}
+      onSubmit={(event) => {
+        addTask(event, valueInput)
+        setValueInput('')
+      }}
     >
       <Input
         type={typeInput}
