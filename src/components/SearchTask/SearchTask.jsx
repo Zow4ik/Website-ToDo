@@ -7,21 +7,17 @@ const SearchTask = (props) => {
   const {
     typeInput,
     placeholderInput,
-    searchTasks,
+    setSearchQuery,
+    searchQuery,
   } = props
 
-  const [valueInput, setValueInput] = useState('')
-
   return (
-    <form
-      className={styles.container}
-      onSubmit={(event) => searchTasks(event, valueInput)}
-    >
+    <form className={styles.container}>
       <Input
         type={typeInput}
         placeholder={placeholderInput}
-        valueInput={valueInput}
-        setValueInput={setValueInput}
+        setValueInput={setSearchQuery}
+        searchQuery={searchQuery}
       />
       <button className={styles.button}>
         <img

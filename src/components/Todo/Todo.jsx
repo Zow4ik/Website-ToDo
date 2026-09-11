@@ -3,7 +3,7 @@ import NewTask from '@/components/NewTask/NewTask.jsx'
 import SearchTask from '@/components/SearchTask/SearchTask.jsx'
 import StatusTask from '@/components/StatusTask/StatusTask.jsx'
 import Tasks from '@/components/Tasks/Tasks.jsx'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 
 const Todo = () => {
   const [tasks, setTasks] = useState([
@@ -12,8 +12,8 @@ const Todo = () => {
     { id: 3, text: '3 покормить асю 3', isComplete: true },
     { id: 4, text: '4 покормить асю 4', isComplete: false },
   ])
-
   const [filteredTasks, setFilteredTasks] = useState(null)
+  const [searchQuery, setSearchQuery] = useState('')
 
   const addTask = (event, text) => {
     event.preventDefault()
@@ -26,17 +26,6 @@ const Todo = () => {
         isComplete: false,
       },
     ])
-  }
-
-  const searchTasks = (event, text) => {
-    event.preventDefault()
-    const textTrim = text.trim()
-
-    setFilteredTasks(
-      textTrim.length > 0
-        ? tasks.filter((task) => task.text.includes(textTrim))
-        : null
-    )
   }
 
   const deleteAllTasks = () => {
@@ -61,6 +50,16 @@ const Todo = () => {
     )
   }
 
+  useEffect(() => {
+    const textTrim = searchQuery.trim()
+
+    setFilteredTasks(
+      textTrim.length > 0
+        ? tasks.filter((task) => task.text.includes(textTrim))
+        : null
+    )
+  }, [tasks, searchQuery]);
+
   return (
     <main className={styles.wrapper}>
       <h1 className={styles.title}>To Do List</h1>
@@ -74,7 +73,8 @@ const Todo = () => {
       <SearchTask
         typeInput='text'
         placeholderInput='Search task'
-        searchTasks={searchTasks}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
       />
       <StatusTask
         tasks={tasks}
