@@ -1,7 +1,6 @@
 import styles from './SearchTask.module.scss'
 import Input from '@/components/Input/Input.jsx'
 import iconSearch from '@/assets/images/icons/iconSearch.svg'
-import { useState } from 'react'
 
 const SearchTask = (props) => {
   const {

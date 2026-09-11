@@ -3,7 +3,7 @@ import NewTask from '@/components/NewTask/NewTask.jsx'
 import SearchTask from '@/components/SearchTask/SearchTask.jsx'
 import StatusTask from '@/components/StatusTask/StatusTask.jsx'
 import Tasks from '@/components/Tasks/Tasks.jsx'
-import {useCallback, useEffect, useState} from 'react'
+import {useCallback, useMemo, useState} from 'react'
 import {localStorageApi} from '@/api/localStorageApi.js'
 import {useDebounce} from '@/hooks/useDebounce.js'
 
@@ -19,8 +19,16 @@ const Todo = () => {
 
     return dataLocalStorage
   })
-  const [filteredTasks, setFilteredTasks] = useState(null)
+
   const [searchQuery, setSearchQuery] = useState('')
+
+  const filteredTasks = useMemo(() => {
+    const searchQueryTrim = searchQuery.trim()
+
+    return searchQueryTrim.length > 0
+      ? tasks.filter((task) => task.text.includes(searchQueryTrim))
+      : null
+  }, [tasks, searchQuery])
 
   const debounceSetSearchQuery = useDebounce((value) => setSearchQuery(value))
 
@@ -70,16 +78,6 @@ const Todo = () => {
       return newStateTasks
     })
   }, [])
-
-  useEffect(() => {
-    const searchQueryTrim = searchQuery.trim()
-
-    setFilteredTasks(
-      searchQueryTrim.length > 0
-        ? tasks.filter((task) => task.text.includes(searchQueryTrim))
-        : null
-    )
-  }, [tasks, searchQuery]);
 
   return (
     <main className={styles.wrapper}>
