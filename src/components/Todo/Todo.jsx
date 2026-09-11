@@ -4,6 +4,7 @@ import SearchTask from '@/components/SearchTask/SearchTask.jsx'
 import StatusTask from '@/components/StatusTask/StatusTask.jsx'
 import Tasks from '@/components/Tasks/Tasks.jsx'
 import {useEffect, useState} from 'react'
+import {localStorageApi} from '@/api/localStorageApi.js'
 
 const Todo = () => {
   const [tasks, setTasks] = useState(() => {
@@ -31,21 +32,21 @@ const Todo = () => {
       },
     ]
 
-    localStorage.setItem('tasks', JSON.stringify(newStateTasks))
+    localStorageApi.updateLocalStorage(newStateTasks)
     setTasks(newStateTasks)
   }
 
   const deleteAllTasks = () => {
     if ( !confirm('вы уверены, что хотите удалить все заметки?') ) return
 
-    localStorage.setItem('tasks', JSON.stringify([]))
+    localStorageApi.clearLocalStorage()
     setTasks([])
   }
 
   const deleteTask = (id) => {
     const newStateTasks = tasks.filter((task) => task.id !== id)
 
-    localStorage.setItem('tasks', JSON.stringify(newStateTasks))
+    localStorageApi.updateLocalStorage(newStateTasks)
     setTasks(newStateTasks)
   }
 
@@ -57,7 +58,7 @@ const Todo = () => {
           : task
       ))
 
-    localStorage.setItem('tasks', JSON.stringify(newStateTasks))
+    localStorageApi.updateLocalStorage(newStateTasks)
     setTasks(newStateTasks)
   }
 
