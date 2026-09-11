@@ -3,7 +3,7 @@ import NewTask from '@/components/NewTask/NewTask.jsx'
 import SearchTask from '@/components/SearchTask/SearchTask.jsx'
 import StatusTask from '@/components/StatusTask/StatusTask.jsx'
 import Tasks from '@/components/Tasks/Tasks.jsx'
-import {useTodo} from '@/hooks/useTodo.js'
+import { useTodo } from '@/hooks/useTodo.js'
 
 const Todo = () => {
   const {

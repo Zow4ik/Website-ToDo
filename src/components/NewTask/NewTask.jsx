@@ -1,7 +1,7 @@
 import styles from './NewTask.module.scss'
 import Input from '@/components/Input/Input.jsx'
 import Button from '@/components/Button/Button.jsx'
-import {useState} from 'react'
+import { useState } from 'react'
 
 const NewTask = (props) => {
   const {

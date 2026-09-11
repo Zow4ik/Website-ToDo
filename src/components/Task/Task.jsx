@@ -11,7 +11,10 @@ const Task = (props) => {
   } = props
 
   return (
-    <li className={styles.container} id={id}>
+    <li
+      className={styles.container}
+      id={id}
+    >
       <div className={styles.inputContainer}>
         <input
           className={styles.checkbox}

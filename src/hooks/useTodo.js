@@ -1,6 +1,6 @@
-import {useCallback, useMemo, useState} from 'react'
-import {useDebounce} from '@/hooks/useDebounce.js'
-import {localStorageApi} from '@/api/localStorageApi.js'
+import { useCallback, useMemo, useState } from 'react'
+import { useDebounce } from '@/hooks/useDebounce.js'
+import { localStorageApi } from '@/api/localStorageApi.js'
 
 const useTodo = () => {
   const [tasks, setTasks] = useState(() => {
