@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from 'react'
 import { useDebounce } from './useDebounce.ts'
 import { localStorageApi } from '../api/localStorageApi.ts'
 
-interface Task {
+export interface Task {
   id: string,
   text: string,
   isComplete: boolean,

@@ -1,7 +1,8 @@
 import styles from './Input.module.scss'
+import type { ComponentProps } from "react";
 
 interface InputProps {
-  type: string,
+  type: ComponentProps<'input'>["type"],
   placeholder: string,
   valueInput: string,
   setValueInput: (value: string) => void,
