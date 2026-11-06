@@ -41,7 +41,7 @@ const useTodo = () => {
 
     return searchQueryTrim.length > 0
       ? tasks.filter((task) => task.text.includes(searchQueryTrim))
-      : null
+      : tasks
   }, [tasks, searchQuery])
 
   const debounceSetSearchQuery = useDebounce({
