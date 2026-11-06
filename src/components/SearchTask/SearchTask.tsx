@@ -6,16 +6,16 @@ import type { ComponentProps } from "react";
 interface SearchTaskProps {
   typeInput: ComponentProps<'input'>["type"],
   placeholderInput: string,
-  setSearchQuery: (value: string) => void,
-  searchQuery: string,
+  inputValue: string,
+  handleSearchChange: (value: string) => void,
 }
 
 const SearchTask = (props: SearchTaskProps) => {
   const {
     typeInput,
     placeholderInput,
-    setSearchQuery,
-    searchQuery,
+    inputValue,
+    handleSearchChange,
   } = props
 
   return (
@@ -26,15 +26,15 @@ const SearchTask = (props: SearchTaskProps) => {
       <Input
         type={typeInput}
         placeholder={placeholderInput}
-        setValueInput={setSearchQuery}
-        valueInput={searchQuery}
+        setValueInput={handleSearchChange}
+        valueInput={inputValue}
       />
-      <button className={styles.button}>
+      <button type="button" className={styles.button}>
         <img
           src={iconSearch}
           alt='search'
-          width='16'
-          height='16'
+          width={16}
+          height={16}
           loading='lazy'
         />
       </button>

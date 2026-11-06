@@ -9,8 +9,8 @@ const Todo = () => {
   const {
     tasks,
     addTask,
-    searchQuery,
-    debounceSetSearchQuery,
+    inputValue,
+    handleSearchChange,
     deleteAllTasks,
     filteredTasks,
     changeIsCompleteTask,
@@ -28,10 +28,10 @@ const Todo = () => {
         addTask={addTask}
       />
       <SearchTask
-        typeInput='text'
-        placeholderInput='Search task'
-        searchQuery={searchQuery}
-        setSearchQuery={debounceSetSearchQuery}
+        typeInput="text"
+        placeholderInput="Search..."
+        inputValue={inputValue}
+        handleSearchChange={handleSearchChange}
       />
       <StatusTask
         tasks={tasks}

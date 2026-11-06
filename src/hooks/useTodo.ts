@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from 'react'
 import { useDebounce } from './useDebounce.ts'
 import { localStorageApi } from '../api/localStorageApi.ts'
+import { type SubmitEvent } from "react";
 
 export interface Task {
   id: string,
@@ -17,23 +18,19 @@ const defaultTask: Task = {
 const useTodo = () => {
   const [tasks, setTasks] = useState<Task[]>(() => {
     const dataLocalStorage = localStorage.getItem('tasks')
-
     if (!dataLocalStorage) return [defaultTask]
-
     try {
-      const dataLocalStorageParse:unknown = JSON.parse(dataLocalStorage)
-
-      if ( Array.isArray(dataLocalStorageParse) ) {
+      const dataLocalStorageParse: unknown = JSON.parse(dataLocalStorage)
+      if (Array.isArray(dataLocalStorageParse)) {
         return dataLocalStorageParse as Task[]
       }
       return [defaultTask]
-
     } catch (error) {
       console.log('ошибка в парсинге задач - ', error)
       return [defaultTask]
     }
   })
-
+  const [inputValue, setInputValue] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
 
   const filteredTasks = useMemo(() => {
@@ -45,12 +42,16 @@ const useTodo = () => {
   }, [tasks, searchQuery])
 
   const debounceSetSearchQuery = useDebounce({
-    callback: (value) => setSearchQuery(value)
-  })
+    callback: (value: string) => setSearchQuery(value)
+  });
 
-  const addTask = (event: React.SubmitEvent<HTMLFormElement>, text: string) => {
+  const handleSearchChange = (value: string) => {
+    setInputValue(value)
+    debounceSetSearchQuery(value)
+  }
+
+  const addTask = (event: SubmitEvent<HTMLFormElement>, text: string) => {
     event.preventDefault()
-
     if (!text.trim().length) return
 
     const newStateTasks = [
@@ -61,14 +62,12 @@ const useTodo = () => {
         isComplete: false,
       },
     ]
-
     localStorageApi.updateLocalStorage(newStateTasks)
     setTasks(newStateTasks)
   }
 
   const deleteAllTasks = useCallback(() => {
-    if ( !confirm('вы уверены, что хотите удалить все заметки?') ) return
-
+    if (!confirm('вы уверены, что хотите удалить все заметки?')) return
     localStorageApi.clearLocalStorage()
     setTasks([])
   }, [])
@@ -83,13 +82,11 @@ const useTodo = () => {
 
   const changeIsCompleteTask = useCallback((id: string) => {
     setTasks((prevTasks) => {
-      const newStateTasks =
-        prevTasks.map((task) => (
-          task.id === id
-            ? { id: task.id, text: task.text, isComplete: !task.isComplete }
-            : task
-        ))
-
+      const newStateTasks = prevTasks.map((task) => (
+        task.id === id
+          ? { ...task, isComplete: !task.isComplete }
+          : task
+      ))
       localStorageApi.updateLocalStorage(newStateTasks)
       return newStateTasks
     })
@@ -97,9 +94,9 @@ const useTodo = () => {
 
   return {
     tasks,
+    inputValue,
+    handleSearchChange,
     addTask,
-    searchQuery,
-    debounceSetSearchQuery,
     deleteAllTasks,
     filteredTasks,
     changeIsCompleteTask,

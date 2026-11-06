@@ -23,7 +23,7 @@ const Input = (props: InputProps) => {
       type={type}
       placeholder={placeholder}
       value={valueInput}
-      onInput={(event) => setValueInput(event.currentTarget.value)}
+      onChange={(event) => setValueInput(event.currentTarget.value)}
     />
   )
 }
