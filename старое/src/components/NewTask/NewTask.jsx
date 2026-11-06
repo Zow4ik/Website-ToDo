@@ -1,6 +1,6 @@
 import styles from './NewTask.module.scss'
-import Input from '@/components/Input/Input.jsx'
-import Button from '@/components/Button/Button.jsx'
+import Input from '../Input/Input.jsx'
+import Button from '../Button/Button.jsx'
 import { useState } from 'react'
 
 const NewTask = (props) => {

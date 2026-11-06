@@ -1,6 +1,6 @@
 import styles from './SearchTask.module.scss'
-import Input from '@/components/Input/Input.jsx'
-import iconSearch from '@/assets/images/icons/iconSearch.svg'
+import Input from '../Input/Input.jsx'
+import iconSearch from '../../assets/images/icons/iconSearch.svg'
 
 const SearchTask = (props) => {
   const {

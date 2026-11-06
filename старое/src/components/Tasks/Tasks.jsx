@@ -1,5 +1,5 @@
 import styles from './Tasks.module.scss'
-import Task from '@/components/Task/Task.jsx'
+import Task from '../Task/Task.jsx'
 
 const Tasks = (props) => {
   const {

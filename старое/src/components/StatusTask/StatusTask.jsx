@@ -1,5 +1,5 @@
 import styles from './StatusTask.module.scss'
-import DeleteAllTasks from '@/components/DeleteAllTasks/DeleteAllTasks.jsx'
+import DeleteAllTasks from '../DeleteAllTasks/DeleteAllTasks.jsx'
 
 const StatusTask = (props) => {
   const {
